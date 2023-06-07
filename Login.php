@@ -1,18 +1,18 @@
 <?php
-include("Conexao.php");
+include  $_SERVER['DOCUMENT_ROOT'] .  ("/ProjetoIntegrador/Config/Conexao.php");
 
 if(isset($_POST['usuario']) && isset($_POST['senha'])){
 
-    if(strlen($_POST['usuario']) == 0){
-        echo "Preencha seu nome de Usuário";
-    }else if(strlen($_POST['senha']) == 0){
-        echo "Preencha sua senha";
-    }else{
+    // if(strlen($_POST['usuario']) == 0){
+       // echo "Preencha seu nome de Usuário";
+    //}else if(strlen($_POST['senha']) == 0){
+     //   echo "Preencha sua senha";
+   // }else{
 
         $usuario = $mysqli->real_escape_string($_POST['usuario']);
         $senha = $mysqli->real_escape_string($_POST['senha']);
 
-        $sql_code = "SELECT * FROM usuarios WHERE usuario = '$usuario' LIMIT 1";
+        $sql_code = "SELECT * FROM funcionarios WHERE usuario = '$usuario' LIMIT 1";
         $sql_query = $mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
 
         if($sql_query->num_rows == 1){
@@ -26,21 +26,15 @@ if(isset($_POST['usuario']) && isset($_POST['senha'])){
                 $_SESSION['id'] = $usuario['id'];
                 $_SESSION['nome'] = $usuario['nome'];
 
-                header("Location: Inicio.php");
+                header("Location: /ProjetoIntegrador/Home.php");
             }else{
-                echo '<div class="alert">
-                <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-                <strong>Atenção:</strong> Insira seu nome de usuário e senha.
-              </div>';
+                
                 
             }
         }else{
-            echo '<div class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-            <strong>Atenção:</strong> Insira seu nome de usuário e senha.
-          </div>';
+            
         }
-    }
+    //}
 }
 ?>
 
@@ -52,7 +46,9 @@ if(isset($_POST['usuario']) && isset($_POST['senha'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleLogin.css">
+    <link rel="stylesheet" href="/ProjetoIntegrador/Styles/styleLogin.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <title>Einstein Login</title>
     <style>
 
@@ -103,13 +99,16 @@ if(isset($_POST['usuario']) && isset($_POST['senha'])){
         </div>
     </form>
 
-    <div class="alert">
+    <!--<div class="alert">
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                         <strong>Atenção:</strong> Insira seu nome de usuário e senha.
                     </div>
     
     
-    <script src="script.js"></script>
+    <script src="script.js"></script> -->
+
+    
+
     
     
 </body>
